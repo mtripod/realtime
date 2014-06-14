@@ -9,6 +9,17 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
+///<-----------------
+#import "Communication.h"
+#import "Device.h"
+#import "ArduinoBoard.h"
+#import "Bluetooth.h"
+#import "BlinkingLedsCommand.h"
+#import "StartCommand.h"
+#import "CommandInvoker.h"
+#import "RoundRobinScheduling.h"
+
+///<-----------------
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -123,4 +134,30 @@
     }
 }
 
+
+-(void)testRealTime
+{
+    Communication *bluetooth = [Bluetooth new];
+  
+    Device *device = [[ArduinoBoard alloc] initWithCommunicationService:bluetooth];
+    
+    
+    //configure command invoker
+    [[CommandInvoker instance] addCommand:[[StartCommand alloc] initWithReceiver:device]];
+    [[CommandInvoker instance] addCommand:[[BlinkingLedsCommand alloc] initWithReceiver:device]];
+    
+    //run commands
+    [[CommandInvoker instance] executeCommandsWithStrategy:[RoundRobinScheduling new]
+                                                   success:^(NSDictionary *result)
+    {
+        
+        
+    }
+    failure:^(NSError *error)
+    {
+        
+        
+    }];
+    
+}
 @end

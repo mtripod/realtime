@@ -23,6 +23,20 @@
 		3C5ADE87194CCEBD00D27504 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C5ADE63194CCEBD00D27504 /* UIKit.framework */; };
 		3C5ADE8F194CCEBD00D27504 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C5ADE8D194CCEBD00D27504 /* InfoPlist.strings */; };
 		3C5ADE91194CCEBD00D27504 /* rtsExamplesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADE90194CCEBD00D27504 /* rtsExamplesTests.m */; };
+		3C5ADEB1194CD1FC00D27504 /* AperiodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEAC194CD1FC00D27504 /* AperiodicTask.m */; };
+		3C5ADEB2194CD1FC00D27504 /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEAE194CD1FC00D27504 /* PeriodicTask.m */; };
+		3C5ADEB3194CD1FC00D27504 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEB0194CD1FC00D27504 /* Task.m */; };
+		3C5ADEB6194CD21C00D27504 /* Device.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEB5194CD21C00D27504 /* Device.m */; };
+		3C5ADEBB194CD31800D27504 /* Communication.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEBA194CD31800D27504 /* Communication.m */; };
+		3C5ADEC1194CD7B600D27504 /* ArduinoBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEC0194CD7B600D27504 /* ArduinoBoard.m */; };
+		3C5ADEC4194CD89C00D27504 /* Bluetooth.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEC3194CD89C00D27504 /* Bluetooth.m */; };
+		3C5ADECB194CD94900D27504 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADECA194CD94900D27504 /* Common.m */; };
+		3C5ADED9194CEF4100D27504 /* CommandInvoker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADED8194CEF4100D27504 /* CommandInvoker.m */; };
+		3C5ADEE0194CF00900D27504 /* BlinkingLedsCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEDB194CF00900D27504 /* BlinkingLedsCommand.m */; };
+		3C5ADEE1194CF00900D27504 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEDD194CF00900D27504 /* Command.m */; };
+		3C5ADEE2194CF00900D27504 /* StartCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEDF194CF00900D27504 /* StartCommand.m */; };
+		3C5ADEE5194CF83100D27504 /* SchedulingStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEE4194CF83100D27504 /* SchedulingStrategy.m */; };
+		3C5ADEE8194CF99600D27504 /* RoundRobinScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADEE7194CF99600D27504 /* RoundRobinScheduling.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +72,34 @@
 		3C5ADE8C194CCEBD00D27504 /* rtsExamplesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "rtsExamplesTests-Info.plist"; sourceTree = "<group>"; };
 		3C5ADE8E194CCEBD00D27504 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3C5ADE90194CCEBD00D27504 /* rtsExamplesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rtsExamplesTests.m; sourceTree = "<group>"; };
+		3C5ADEAB194CD1FC00D27504 /* AperiodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AperiodicTask.h; sourceTree = "<group>"; };
+		3C5ADEAC194CD1FC00D27504 /* AperiodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AperiodicTask.m; sourceTree = "<group>"; };
+		3C5ADEAD194CD1FC00D27504 /* PeriodicTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeriodicTask.h; sourceTree = "<group>"; };
+		3C5ADEAE194CD1FC00D27504 /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
+		3C5ADEAF194CD1FC00D27504 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		3C5ADEB0194CD1FC00D27504 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		3C5ADEB4194CD21C00D27504 /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
+		3C5ADEB5194CD21C00D27504 /* Device.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.m; sourceTree = "<group>"; };
+		3C5ADEB9194CD31800D27504 /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
+		3C5ADEBA194CD31800D27504 /* Communication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Communication.m; sourceTree = "<group>"; };
+		3C5ADEBF194CD7B600D27504 /* ArduinoBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArduinoBoard.h; sourceTree = "<group>"; };
+		3C5ADEC0194CD7B600D27504 /* ArduinoBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArduinoBoard.m; sourceTree = "<group>"; };
+		3C5ADEC2194CD89C00D27504 /* Bluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bluetooth.h; sourceTree = "<group>"; };
+		3C5ADEC3194CD89C00D27504 /* Bluetooth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bluetooth.m; sourceTree = "<group>"; };
+		3C5ADEC9194CD94900D27504 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		3C5ADECA194CD94900D27504 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		3C5ADED7194CEF4100D27504 /* CommandInvoker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandInvoker.h; sourceTree = "<group>"; };
+		3C5ADED8194CEF4100D27504 /* CommandInvoker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandInvoker.m; sourceTree = "<group>"; };
+		3C5ADEDA194CF00900D27504 /* BlinkingLedsCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlinkingLedsCommand.h; sourceTree = "<group>"; };
+		3C5ADEDB194CF00900D27504 /* BlinkingLedsCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlinkingLedsCommand.m; sourceTree = "<group>"; };
+		3C5ADEDC194CF00900D27504 /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Command.h; sourceTree = "<group>"; };
+		3C5ADEDD194CF00900D27504 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
+		3C5ADEDE194CF00900D27504 /* StartCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartCommand.h; sourceTree = "<group>"; };
+		3C5ADEDF194CF00900D27504 /* StartCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartCommand.m; sourceTree = "<group>"; };
+		3C5ADEE3194CF83100D27504 /* SchedulingStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchedulingStrategy.h; sourceTree = "<group>"; };
+		3C5ADEE4194CF83100D27504 /* SchedulingStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchedulingStrategy.m; sourceTree = "<group>"; };
+		3C5ADEE6194CF99600D27504 /* RoundRobinScheduling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundRobinScheduling.h; sourceTree = "<group>"; };
+		3C5ADEE7194CF99600D27504 /* RoundRobinScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundRobinScheduling.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +159,7 @@
 		3C5ADE65194CCEBD00D27504 /* rtsExamples */ = {
 			isa = PBXGroup;
 			children = (
+				3C5ADEA7194CD1FC00D27504 /* rtsLibrary */,
 				3C5ADE6E194CCEBD00D27504 /* AppDelegate.h */,
 				3C5ADE6F194CCEBD00D27504 /* AppDelegate.m */,
 				3C5ADE71194CCEBD00D27504 /* Main_iPhone.storyboard */,
@@ -158,6 +201,81 @@
 				3C5ADE8D194CCEBD00D27504 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3C5ADEA7194CD1FC00D27504 /* rtsLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				3C5ADED6194CEF4100D27504 /* Command */,
+				3C5ADEC8194CD94900D27504 /* Common */,
+				3C5ADEB8194CD2FA00D27504 /* Communication */,
+				3C5ADEA9194CD1FC00D27504 /* Device */,
+				3C5ADEAA194CD1FC00D27504 /* Task */,
+			);
+			path = rtsLibrary;
+			sourceTree = "<group>";
+		};
+		3C5ADEA9194CD1FC00D27504 /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				3C5ADEB4194CD21C00D27504 /* Device.h */,
+				3C5ADEB5194CD21C00D27504 /* Device.m */,
+				3C5ADEBF194CD7B600D27504 /* ArduinoBoard.h */,
+				3C5ADEC0194CD7B600D27504 /* ArduinoBoard.m */,
+			);
+			path = Device;
+			sourceTree = "<group>";
+		};
+		3C5ADEAA194CD1FC00D27504 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				3C5ADEAB194CD1FC00D27504 /* AperiodicTask.h */,
+				3C5ADEAC194CD1FC00D27504 /* AperiodicTask.m */,
+				3C5ADEAD194CD1FC00D27504 /* PeriodicTask.h */,
+				3C5ADEAE194CD1FC00D27504 /* PeriodicTask.m */,
+				3C5ADEAF194CD1FC00D27504 /* Task.h */,
+				3C5ADEB0194CD1FC00D27504 /* Task.m */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		3C5ADEB8194CD2FA00D27504 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				3C5ADEB9194CD31800D27504 /* Communication.h */,
+				3C5ADEBA194CD31800D27504 /* Communication.m */,
+				3C5ADEC2194CD89C00D27504 /* Bluetooth.h */,
+				3C5ADEC3194CD89C00D27504 /* Bluetooth.m */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
+		3C5ADEC8194CD94900D27504 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3C5ADEC9194CD94900D27504 /* Common.h */,
+				3C5ADECA194CD94900D27504 /* Common.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3C5ADED6194CEF4100D27504 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				3C5ADEDA194CF00900D27504 /* BlinkingLedsCommand.h */,
+				3C5ADEDB194CF00900D27504 /* BlinkingLedsCommand.m */,
+				3C5ADEDC194CF00900D27504 /* Command.h */,
+				3C5ADEDD194CF00900D27504 /* Command.m */,
+				3C5ADEDE194CF00900D27504 /* StartCommand.h */,
+				3C5ADEDF194CF00900D27504 /* StartCommand.m */,
+				3C5ADED7194CEF4100D27504 /* CommandInvoker.h */,
+				3C5ADED8194CEF4100D27504 /* CommandInvoker.m */,
+				3C5ADEE3194CF83100D27504 /* SchedulingStrategy.h */,
+				3C5ADEE4194CF83100D27504 /* SchedulingStrategy.m */,
+				3C5ADEE6194CF99600D27504 /* RoundRobinScheduling.h */,
+				3C5ADEE7194CF99600D27504 /* RoundRobinScheduling.m */,
+			);
+			path = Command;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,10 +376,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C5ADEB3194CD1FC00D27504 /* Task.m in Sources */,
 				3C5ADE70194CCEBD00D27504 /* AppDelegate.m in Sources */,
+				3C5ADEB1194CD1FC00D27504 /* AperiodicTask.m in Sources */,
+				3C5ADEE8194CF99600D27504 /* RoundRobinScheduling.m in Sources */,
+				3C5ADEB6194CD21C00D27504 /* Device.m in Sources */,
+				3C5ADEE1194CF00900D27504 /* Command.m in Sources */,
+				3C5ADEC4194CD89C00D27504 /* Bluetooth.m in Sources */,
+				3C5ADEE5194CF83100D27504 /* SchedulingStrategy.m in Sources */,
+				3C5ADEE2194CF00900D27504 /* StartCommand.m in Sources */,
 				3C5ADE79194CCEBD00D27504 /* MasterViewController.m in Sources */,
 				3C5ADE6C194CCEBD00D27504 /* main.m in Sources */,
+				3C5ADED9194CEF4100D27504 /* CommandInvoker.m in Sources */,
 				3C5ADE7C194CCEBD00D27504 /* DetailViewController.m in Sources */,
+				3C5ADEE0194CF00900D27504 /* BlinkingLedsCommand.m in Sources */,
+				3C5ADEB2194CD1FC00D27504 /* PeriodicTask.m in Sources */,
+				3C5ADEBB194CD31800D27504 /* Communication.m in Sources */,
+				3C5ADECB194CD94900D27504 /* Common.m in Sources */,
+				3C5ADEC1194CD7B600D27504 /* ArduinoBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
