@@ -26,12 +26,14 @@
 	[centralManager scanForPeripheralsWithServices:services options:nil];
 	self.centralManager = centralManager;
     
+    success(success);
 
+    
 }
 
 -(void)disconnect:(Success)success failure:(Failure)failure
 {
-
+    success(success);
 }
 
 -(BOOL)isConnected
@@ -45,7 +47,22 @@
 }
 
 
-#pragma mark - Bluethooth 
+-(void)send:(NSDictionary*)data
+    success:(Success)success
+    failure:(Failure)failure
+{
+    success(success);
+}
+
+-(void)receive:(NSDictionary*)data
+       success:(Success)success
+       failure:(Failure)failure
+{
+    success(success);
+}
+
+
+#pragma mark - Bluethooth
 
 
 // method called whenever the device state changes.

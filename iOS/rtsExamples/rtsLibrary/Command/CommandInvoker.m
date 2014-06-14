@@ -58,10 +58,10 @@
 {
     [scheduling schedule:self.commands success:^(NSDictionary *result)
     {
-        
+        success(success);
         
     } failure:^(NSError *error) {
-        
+        failure(failure);
     }];
 }
 

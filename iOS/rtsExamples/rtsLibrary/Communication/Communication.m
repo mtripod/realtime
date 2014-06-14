@@ -14,12 +14,12 @@
 -(void)connect:(Success)success
        failure:(Failure)failure
 {
-    NSAssert(YES, @"This method must be implemented in child classes");
+    NSAssert(NO, @"This method must be implemented in child classes");
 }
 -(void)disconnect:(Success)success
           failure:(Failure)failure
 {
-    NSAssert(YES, @"This method must be implemented in child classes");
+    NSAssert(NO, @"This method must be implemented in child classes");
 }
 
 
@@ -27,25 +27,25 @@
     success:(Success)success
     failure:(Failure)failure
 {
-    NSAssert(YES, @"This method must be implemented in child classes");
+    NSAssert(NO, @"This method must be implemented in child classes");
 }
 
 -(void)receive:(NSDictionary*)data
        success:(Success)success
        failure:(Failure)failure
 {
-    NSAssert(YES, @"This method must be implemented in child classes");
+    NSAssert(NO, @"This method must be implemented in child classes");
 }
 
 -(BOOL)isConnected
 {
-    NSAssert(YES, @"This method must be implemented in child classes");
+    NSAssert(NO, @"This method must be implemented in child classes");
     return NO;
 }
 
 -(NSDictionary*)status
 {
-    NSAssert(YES, @"This method must be implemented in child classes");
+    NSAssert(NO, @"This method must be implemented in child classes");
     return nil;
 }
 

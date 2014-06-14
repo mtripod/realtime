@@ -46,6 +46,8 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    [self testRealTime];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,21 +145,31 @@
     
     
     //configure command invoker
-    [[CommandInvoker instance] addCommand:[[StartCommand alloc] initWithReceiver:device]];
     [[CommandInvoker instance] addCommand:[[BlinkingLedsCommand alloc] initWithReceiver:device]];
     
-    //run commands
-    [[CommandInvoker instance] executeCommandsWithStrategy:[RoundRobinScheduling new]
-                                                   success:^(NSDictionary *result)
+    [[[StartCommand alloc] initWithReceiver:device] execute:^(NSDictionary *result)
     {
         
-        
-    }
-    failure:^(NSError *error)
+        for (;;)
+        {
+            //run commands
+            [[CommandInvoker instance] executeCommandsWithStrategy:[RoundRobinScheduling new]
+                                                           success:^(NSDictionary *result)
+             {
+                 //update UI
+                 
+             }
+                                                           failure:^(NSError *error)
+             {
+                 //update UI
+             }];
+        }
+
+    } failure:^(NSError *error)
     {
-        
         
     }];
+    
     
 }
 @end
