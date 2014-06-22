@@ -146,6 +146,7 @@
     
     //configure command invoker
     [[CommandInvoker instance] addCommand:[[BlinkingLedsCommand alloc] initWithReceiver:device]];
+    [[CommandInvoker instance] addCommand:[[BlinkingLedsCommand alloc] initWithReceiver:device]];
     
     [[[StartCommand alloc] initWithReceiver:device] execute:^(NSDictionary *result)
     {
@@ -157,7 +158,8 @@
                                                            success:^(NSDictionary *result)
              {
                  //update UI
-                 
+                 //[[StateMachine instance] updateState:result];
+                 NSLog(@"Success command");
              }
                                                            failure:^(NSError *error)
              {

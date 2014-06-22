@@ -11,7 +11,7 @@
 @interface Bluetooth ()
 
 @property (nonatomic) CBCentralManager *centralManager;
-@property (nonatomic) CBPeripheral     *polarH7HRMPeripheral;
+@property (nonatomic) CBPeripheral     *activePeripheral;
 @property (nonatomic) BOOL connected;
 @end
 
@@ -21,14 +21,12 @@
 {
 
     // Scan for all available CoreBluetooth LE devices
-	NSArray *services = @[[CBUUID UUIDWithString:POLARH7_HRM_HEART_RATE_SERVICE_UUID], [CBUUID UUIDWithString:POLARH7_HRM_DEVICE_INFO_SERVICE_UUID]];
+	NSArray *services = @[[CBUUID UUIDWithString:RBL_SERVICE_UUID], [CBUUID UUIDWithString:RBL_CHAR_TX_UUID], [CBUUID UUIDWithString:RBL_CHAR_RX_UUID]];
 	CBCentralManager *centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
 	[centralManager scanForPeripheralsWithServices:services options:nil];
 	self.centralManager = centralManager;
     
     success(success);
-
-    
 }
 
 -(void)disconnect:(Success)success failure:(Failure)failure
@@ -62,8 +60,194 @@
 }
 
 
-#pragma mark - Bluethooth
 
+#pragma mark - Helpers Bluethooth
+-(void) read
+{
+    CBUUID *uuid_service = [CBUUID UUIDWithString:RBL_SERVICE_UUID];
+    CBUUID *uuid_char = [CBUUID UUIDWithString:RBL_CHAR_TX_UUID];
+    
+    [self readValue:uuid_service characteristicUUID:uuid_char peripheral:self.activePeripheral];
+}
+
+-(void) write:(NSData *)d
+{
+    CBUUID *uuid_service = [CBUUID UUIDWithString:RBL_SERVICE_UUID];
+    CBUUID *uuid_char = [CBUUID UUIDWithString:RBL_CHAR_RX_UUID];
+    
+    [self writeValue:uuid_service characteristicUUID:uuid_char peripheral:self.activePeripheral data:d];
+}
+
+-(void) enableReadNotification:(CBPeripheral *)peripheral
+{
+    CBUUID *uuid_service = [CBUUID UUIDWithString:RBL_SERVICE_UUID];
+    CBUUID *uuid_char = [CBUUID UUIDWithString:RBL_CHAR_TX_UUID];
+    
+    [self notification:uuid_service characteristicUUID:uuid_char peripheral:peripheral on:YES];
+}
+
+
+
+-(void) notification:(CBUUID *)serviceUUID characteristicUUID:(CBUUID *)characteristicUUID peripheral:(CBPeripheral *)peripheral on:(BOOL)on
+{
+    CBService *service = [self findServiceFromUUID:serviceUUID peripheral:peripheral];
+    
+    if (!service)
+    {
+        NSLog(@"Could not find service with UUID %@ on peripheral with UUID %@",
+              [self CBUUIDToString:serviceUUID],
+              peripheral.identifier.UUIDString);
+        
+        return;
+    }
+    
+    CBCharacteristic *characteristic = [self findCharacteristicFromUUID:characteristicUUID service:service];
+    
+    if (!characteristic)
+    {
+        NSLog(@"Could not find characteristic with UUID %@ on service with UUID %@ on peripheral with UUID %@",
+              [self CBUUIDToString:characteristicUUID],
+              [self CBUUIDToString:serviceUUID],
+              peripheral.identifier.UUIDString);
+        
+        return;
+    }
+    
+    [peripheral setNotifyValue:on forCharacteristic:characteristic];
+}
+
+-(void) readValue: (CBUUID *)serviceUUID characteristicUUID:(CBUUID *)characteristicUUID peripheral:(CBPeripheral *)peripheral
+{
+    CBService *service = [self findServiceFromUUID:serviceUUID peripheral:peripheral];
+    
+    if (!service)
+    {
+        NSLog(@"Could not find service with UUID %@ on peripheral with UUID %@",
+              [self CBUUIDToString:serviceUUID],
+              peripheral.identifier.UUIDString);
+        
+        return;
+    }
+    
+    CBCharacteristic *characteristic = [self findCharacteristicFromUUID:characteristicUUID service:service];
+    
+    if (!characteristic)
+    {
+        NSLog(@"Could not find characteristic with UUID %@ on service with UUID %@ on peripheral with UUID %@",
+              [self CBUUIDToString:characteristicUUID],
+              [self CBUUIDToString:serviceUUID],
+              peripheral.identifier.UUIDString);
+        
+        return;
+    }
+    
+    [peripheral readValueForCharacteristic:characteristic];
+}
+
+-(void) writeValue:(CBUUID *)serviceUUID characteristicUUID:(CBUUID *)characteristicUUID peripheral:(CBPeripheral *)peripheral data:(NSData *)data
+{
+    CBService *service = [self findServiceFromUUID:serviceUUID peripheral:peripheral];
+    
+    if (!service)
+    {
+        NSLog(@"Could not find service with UUID %@ on peripheral with UUID %@",
+              [self CBUUIDToString:serviceUUID],
+              peripheral.identifier.UUIDString);
+        
+        return;
+    }
+    
+    CBCharacteristic *characteristic = [self findCharacteristicFromUUID:characteristicUUID service:service];
+    
+    if (!characteristic)
+    {
+        NSLog(@"Could not find characteristic with UUID %@ on service with UUID %@ on peripheral with UUID %@",
+              [self CBUUIDToString:characteristicUUID],
+              [self CBUUIDToString:serviceUUID],
+              peripheral.identifier.UUIDString);
+        
+        return;
+    }
+    
+    [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
+}
+
+
+-(CBCharacteristic *) findCharacteristicFromUUID:(CBUUID *)UUID service:(CBService*)service
+{
+    for(int i=0; i < service.characteristics.count; i++)
+    {
+        CBCharacteristic *c = [service.characteristics objectAtIndex:i];
+        if ([self compareCBUUID:c.UUID UUID2:UUID]) return c;
+    }
+    
+    return nil; //Characteristic not found on this service
+}
+
+-(CBService *) findServiceFromUUID:(CBUUID *)UUID peripheral:(CBPeripheral *)peripheral
+{
+    for(int i = 0; i < peripheral.services.count; i++)
+    {
+        CBService *s = [peripheral.services objectAtIndex:i];
+        if ([self compareCBUUID:s.UUID UUID2:UUID])
+            return s;
+    }
+    
+    return nil; //Service not found on this peripheral
+}
+
+-(int) compareCBUUID:(CBUUID *) UUID1 UUID2:(CBUUID *)UUID2
+{
+    char b1[16];
+    char b2[16];
+    [UUID1.data getBytes:b1];
+    [UUID2.data getBytes:b2];
+    
+    if (memcmp(b1, b2, UUID1.data.length) == 0)
+        return 1;
+    else
+        return 0;
+}
+
+-(int) compareCBUUIDToInt:(CBUUID *)UUID1 UUID2:(UInt16)UUID2
+{
+    char b1[16];
+    
+    [UUID1.data getBytes:b1];
+    UInt16 b2 = [self swap:UUID2];
+    
+    if (memcmp(b1, (char *)&b2, 2) == 0)
+        return 1;
+    else
+        return 0;
+}
+
+-(NSString *) CBUUIDToString:(CBUUID *) cbuuid;
+{
+    NSData *data = cbuuid.data;
+    
+    if ([data length] == 2)
+    {
+        const unsigned char *tokenBytes = [data bytes];
+        return [NSString stringWithFormat:@"%02x%02x", tokenBytes[0], tokenBytes[1]];
+    }
+    else if ([data length] == 16)
+    {
+        NSUUID* nsuuid = [[NSUUID alloc] initWithUUIDBytes:[data bytes]];
+        return [nsuuid UUIDString];
+    }
+    
+    return [cbuuid description];
+}
+
+-(UInt16) swap:(UInt16)s
+{
+    UInt16 temp = s << 8;
+    temp |= (s >> 8);
+    return temp;
+}
+
+#pragma mark - Bluethooth
 
 // method called whenever the device state changes.
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -97,19 +281,25 @@
 // CBPeripheralDelegate - Invoked when you discover the peripheral's available services.
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-	for (CBService *service in peripheral.services) {
-		[peripheral discoverCharacteristics:nil forService:service];
-	}
+    if (!error)
+    {
+        for (CBService *service in peripheral.services)
+        {
+            [peripheral discoverCharacteristics:nil forService:service];
+        }
+    }
+	
 }
 
 // CBCentralManagerDelegate - This is called with the CBPeripheral class as its main input parameter. This contains most of the information there is to know about a BLE peripheral.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
 	NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
-	if (![localName isEqual:@""]) {
+	if (![localName isEqual:@""])
+    {
 		// We found the Heart Rate Monitor
 		[self.centralManager stopScan];
-		self.polarH7HRMPeripheral = peripheral;
+		self.activePeripheral = peripheral;
 		peripheral.delegate = self;
 		[self.centralManager connectPeripheral:peripheral options:nil];
 	}
@@ -118,64 +308,76 @@
 // Invoked when you discover the characteristics of a specified service.
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-	if ([service.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_HEART_RATE_SERVICE_UUID]])
-    {  // 1
-		for (CBCharacteristic *aChar in service.characteristics)
-		{
-			// Request heart rate notifications
-			if ([aChar.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_NOTIFICATIONS_SERVICE_UUID]])
-            { // 2
-				[self.polarH7HRMPeripheral setNotifyValue:YES forCharacteristic:aChar];
-			}
-			// Request body sensor location
-			else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_BODY_LOCATION_UUID]])
-            { // 3
-				[self.polarH7HRMPeripheral readValueForCharacteristic:aChar];
-			}
-            //			else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_ENABLE_SERVICE_UUID]]) { // 4
-            //				// Read the value of the heart rate sensor
-            //				UInt8 value = 0x01;
-            //				NSData *data = [NSData dataWithBytes:&value length:sizeof(value)];
-            //				[peripheral writeValue:data forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
-            //			}
-		}
-	}
-	// Retrieve Device Information Services for the Manufacturer Name
-	if ([service.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_DEVICE_INFO_SERVICE_UUID]])
-    { // 5
-        for (CBCharacteristic *aChar in service.characteristics)
+    if (!error)
+    {
+        for (CBService *s in service.characteristics)
         {
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_MANUFACTURER_NAME_UUID]])
+            if ([service.UUID isEqual:s.UUID])
             {
-                [self.polarH7HRMPeripheral readValueForCharacteristic:aChar];
-                NSLog(@"Found a Device Manufacturer Name Characteristic");
+                [self enableReadNotification:self.activePeripheral];
+                [[self delegate] communicationDidConnect];
+                _connected = true;
+                
+                break;
             }
         }
-	}
+    }
+    else
+    {
+        NSLog(@"Characteristic discorvery unsuccessful!");
+    }
+
 }
 
-// Invoked when you retrieve a specified characteristic's value, or when the peripheral device notifies your app that the characteristic's value has changed.
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-	// Updated value for heart rate measurement received
-	if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_NOTIFICATIONS_SERVICE_UUID]])
-    { // 1
-		// Get the Heart Rate Monitor BPM
-		//[self getHeartBPMData:characteristic error:error];
-	}
-	// Retrieve the characteristic value for manufacturer name received
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_MANUFACTURER_NAME_UUID]])
-    {  // 2
-		//[self getManufacturerName:characteristic];
+    unsigned char data[20];
+    
+    static unsigned char buf[512];
+    static int len = 0;
+    NSInteger data_len;
+    
+    if (!error)
+    {
+        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:RBL_CHAR_TX_UUID]])
+        {
+            data_len = characteristic.value.length;
+            [characteristic.value getBytes:data length:data_len];
+            
+            if (data_len == 20)
+            {
+                memcpy(&buf[len], data, 20);
+                len += data_len;
+                
+                if (len >= 64)
+                {
+                    [[self delegate] communicationDidReceiveData:buf length:len];
+                    len = 0;
+                }
+            }
+            else if (data_len < 20)
+            {
+                memcpy(&buf[len], data, data_len);
+                len += data_len;
+                
+                [[self delegate] communicationDidReceiveData:buf length:len];
+                len = 0;
+            }
+        }
     }
-	// Retrieve the characteristic value for the body sensor location received
-	else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:POLARH7_HRM_BODY_LOCATION_UUID]])
-    {  // 3
-		//[self getBodyLocation:characteristic];
+    else
+    {
+        NSLog(@"updateValueForCharacteristic failed!");
     }
-	
-	// Add our constructed device information to our UITextView
-	//self.deviceInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@\n", self.connected, self.bodyData, self.manufacturer];  // 4
+    
 }
+
+
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
+{
+    [[self delegate] communicationDidDisconnect];
+    _connected = false;
+}
+
 
 @end

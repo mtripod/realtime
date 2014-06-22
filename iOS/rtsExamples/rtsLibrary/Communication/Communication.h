@@ -9,7 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "Common.h"
 
+
+@protocol CommunicationDelegate
+@optional
+-(void) communicationDidConnect;
+-(void) communicationDidDisconnect;
+-(void) communicationDidReceiveData:(unsigned char *) data length:(int) length;
+@required
+@end
+
 @interface Communication : NSObject
+
+@property (nonatomic,assign) id <CommunicationDelegate> delegate;
 
 -(void)connect:(Success)success
      failure:(Failure)failure;

@@ -37,6 +37,7 @@
 		3C5ADF16194D0DF900D27504 /* AperiodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADF06194D0DF900D27504 /* AperiodicTask.m */; };
 		3C5ADF17194D0DF900D27504 /* PeriodicTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADF08194D0DF900D27504 /* PeriodicTask.m */; };
 		3C5ADF18194D0DF900D27504 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADF0A194D0DF900D27504 /* Task.m */; };
+		3C5ADF1B194D134200D27504 /* StateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5ADF1A194D134200D27504 /* StateMachine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		3C5ADF08194D0DF900D27504 /* PeriodicTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeriodicTask.m; sourceTree = "<group>"; };
 		3C5ADF09194D0DF900D27504 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		3C5ADF0A194D0DF900D27504 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		3C5ADF19194D134200D27504 /* StateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateMachine.h; path = ../../rtsLibrary/StateMachine/StateMachine.h; sourceTree = "<group>"; };
+		3C5ADF1A194D134200D27504 /* StateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StateMachine.m; path = ../../rtsLibrary/StateMachine/StateMachine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +214,8 @@
 				3C5ADEFA194D0DF900D27504 /* Communication */,
 				3C5ADEFF194D0DF900D27504 /* Device */,
 				3C5ADF04194D0DF900D27504 /* Task */,
+				3C5ADF19194D134200D27504 /* StateMachine.h */,
+				3C5ADF1A194D134200D27504 /* StateMachine.m */,
 			);
 			path = rtsLibrary;
 			sourceTree = "<group>";
@@ -381,6 +386,7 @@
 				3C5ADF10194D0DF900D27504 /* StartCommand.m in Sources */,
 				3C5ADF15194D0DF900D27504 /* Device.m in Sources */,
 				3C5ADE70194CCEBD00D27504 /* AppDelegate.m in Sources */,
+				3C5ADF1B194D134200D27504 /* StateMachine.m in Sources */,
 				3C5ADF0E194D0DF900D27504 /* RoundRobinScheduling.m in Sources */,
 				3C5ADF12194D0DF900D27504 /* Bluetooth.m in Sources */,
 				3C5ADF0C194D0DF900D27504 /* Command.m in Sources */,

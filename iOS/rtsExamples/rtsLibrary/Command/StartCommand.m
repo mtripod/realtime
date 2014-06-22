@@ -12,10 +12,12 @@
 
 
 -(void)execute:(Success)success failure:(Failure)failure
-{
-    [self.device start:^(NSDictionary *result) {
+{    
+    [self.device start:^(NSDictionary *result)
+    {
         success(success);
-    } failure:^(NSError *error) {
+    } failure:^(NSError *error)
+    {
         failure(failure);
     }];
 }
